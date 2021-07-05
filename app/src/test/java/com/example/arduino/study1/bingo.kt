@@ -27,7 +27,7 @@ fun main(){
 //            println("請猜小一點")
 //        }
 //    }
-    for(i in 1..5){
+    for(i in 1 until 5){
         print("第 $i /5次請輸入$min ~ $max 的數字: ")
         user = readLine()!!.toInt()
         if(user == computer){
