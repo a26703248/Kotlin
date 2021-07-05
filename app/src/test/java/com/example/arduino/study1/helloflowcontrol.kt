@@ -31,6 +31,23 @@ fun main(){
         6 -> "D"
         else -> "E"
     }
-
     println(level2)
+
+    // for
+    for(i in 1..10){// 1~10
+        print("$i ")
+    }
+    println()
+    for(i in 1..10 step 2){// 1~10 間格 2
+        print("$i ")
+    }
+    println()
+    for(i in 1 until 10){// 1~10 不含10
+        print("$i ")
+    }
+    println()
+    for(i in 10 downTo 1){// 10~1 遞減
+        print("$i ")
+    }
+    println()
 }
