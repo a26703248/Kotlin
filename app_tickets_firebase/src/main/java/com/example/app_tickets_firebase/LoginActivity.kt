@@ -24,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun consoleLogin(view: View){
-
+        val intent = Intent(context, Console::class.java)
+        // 設定 userName 參數資料給指定頁 (EX : OrderListActivity)
+        startActivity(intent)
     }
 }
