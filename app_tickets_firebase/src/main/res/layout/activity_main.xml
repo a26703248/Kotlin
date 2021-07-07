@@ -172,7 +172,7 @@
             android:layout_weight="1"
             android:backgroundTint="#FF5722"
             android:gravity="center"
-            android:onClick="Ticket"
+            android:onClick="recordTicket"
             android:padding="10dp"
             android:text="紀錄"
             android:textColor="#ffff00"
