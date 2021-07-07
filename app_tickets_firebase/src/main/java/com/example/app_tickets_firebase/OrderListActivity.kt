@@ -21,6 +21,7 @@ class OrderListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_list)
         //取得主頁傳來的參數資料
         userName = intent.getStringExtra("userName").toString()
+        title = "Hi " + userName + "的雲端紀錄"
         myRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val children = snapshot.children

@@ -17,13 +17,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
-        android:text="登入"
+        android:id="@+id/bt_order_login"
+        android:text="訂票登入"
         android:textSize="20dp"
         android:padding="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:onClick="login"
         android:layout_below="@id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/bt_console_login"
+        android:text="後台登入"
+        android:textSize="20dp"
+        android:padding="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:onClick="consoleLogin"
+        android:layout_below="@+id/bt_order_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
