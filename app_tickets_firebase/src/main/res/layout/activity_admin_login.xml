@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".AdminLoginActivity">
 
     <ImageView
         android:layout_above="@+id/et_username"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ticket"
-        android:layout_width="200dp"
-        android:layout_height="100dp"/>
+        android:src="@drawable/lederer"
+        android:layout_width="350dp"
+        android:layout_height="300dp"/>
 
     <EditText
         android:id="@+id/et_username"
-        android:hint="請輸入帳號"
+        android:hint="請輸入管理帳號"
         android:textSize="30dp"
         android:padding="20dp"
         android:layout_centerInParent="true"
@@ -24,17 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/bt_order_login"
-        android:text="訂票登入"
+        android:id="@+id/bt_console_login"
+        android:text="後台登入"
         android:textSize="20dp"
         android:padding="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:onClick="login"
-        android:layout_below="@id/et_username"
+        android:onClick="consoleLogin"
+        android:layout_below="@+id/et_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
 
 </RelativeLayout>

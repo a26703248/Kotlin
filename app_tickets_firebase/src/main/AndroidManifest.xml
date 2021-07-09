@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Arduino">
-        <activity android:name=".Console"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".AdminLoginActivity"
+                  android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".Console"
+            android:parentActivityName=".AdminLoginActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity" />
         <activity android:name=".OrderListActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

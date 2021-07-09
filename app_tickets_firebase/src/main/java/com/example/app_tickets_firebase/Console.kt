@@ -93,17 +93,15 @@ class Console : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // groupId(分組):0,itemId:1,order(順序):10,title:"訂單細目"
         menu?.add(0,1,10,"訂單細目")?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        menu?.add(0,2,20,"返回")?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            1 -> {
+            1 -> { // "訂單細目"
                 val intent = Intent(context, OrderListActivity::class.java)
                 startActivity(intent)
-            } // "訂單細目"
-            2 -> finish() // "離開"
+            }
         }
         return super.onOptionsItemSelected(item)
     }
