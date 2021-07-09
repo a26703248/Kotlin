@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -52,6 +53,7 @@ class Console : AppCompatActivity() {
                         // 訂單明細
                         "order" ->{
                             it.children.forEach{// 訂單人名
+                                //
                                 var mapUser = mutableMapOf<String,Int>()
                                 val mapUserName = it.key.toString()
                                 mapUser.put(mapUserName,0)
@@ -73,28 +75,36 @@ class Console : AppCompatActivity() {
                         }
                     }
                 }
+                Log.d("Console",statListByUser.toString())
                 selectFirbase()
                 // 統計資料
                 tv_stat.text = "總賣票數: ${String.format("%,d",sumAllTickets)} 張\n" +
                         "總單程票: ${String.format("%,d",sumOneWay)} 張\n" +
                         "總來回票: ${String.format("%,d",sumRoundTrip*2)} 張(${String.format("%,d",sumRoundTrip)} 組)\n" +
                         "總銷售金額: ${String.format("%,d",sumTotal)} 元"
+                // 載錄圖表
+                loadChart(statListByUser)
             }
             override fun onCancelled(error: DatabaseError) {
             }
         })
 
-        // 載錄圖表
-        loadChart()
     }
 
-    fun loadChart() {
+    fun loadChart(statListByUser: List<Map<String,Int>>) {
+        var rowDataByChart:String = ""
+        statListByUser.forEach{
+            val key = it.keys.iterator().next()
+            val value = it[key]
+            rowDataByChart += "['$key,$value]"
+        }
+
         var webSettings =  web_view.settings;
         webSettings.setJavaScriptEnabled(true); // 啟用 Javascript
         webSettings.setBuiltInZoomControls(true); // 啟用 Zoom
         var asset_path = "file:///asset/";
         var html = getHtml("chart.html");
-        html = String.format(html!!, 10, 20, 30, 40, 50)
+        html = String.format(html!!, rowDataByChart)
         web_view.loadDataWithBaseURL(asset_path, html!!, "text/html", "utf-8", null);
         web_view.requestFocusFromTouch();
     }
