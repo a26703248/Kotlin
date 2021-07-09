@@ -92,17 +92,18 @@ class Console : AppCompatActivity() {
     }
 
     fun loadChart(statListByUser: List<Map<String,Int>>) {
-        var rowDataByChart:String = ""
-        statListByUser.forEach{
+        var rowDataByChart: String = ""
+        statListByUser.forEach {
             val key = it.keys.iterator().next()
             val value = it[key]
-            rowDataByChart += "['$key,$value]"
+            rowDataByChart += "['$key', $value],"
         }
+        Log.d("ConsoleActivity", rowDataByChart)
 
         var webSettings =  web_view.settings;
         webSettings.setJavaScriptEnabled(true); // 啟用 Javascript
         webSettings.setBuiltInZoomControls(true); // 啟用 Zoom
-        var asset_path = "file:///asset/";
+        var asset_path = "file:///android_asset/";
         var html = getHtml("chart.html");
         html = String.format(html!!, rowDataByChart)
         web_view.loadDataWithBaseURL(asset_path, html!!, "text/html", "utf-8", null);
