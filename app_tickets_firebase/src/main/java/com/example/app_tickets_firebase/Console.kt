@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +15,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_console.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_order_list.*
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.nio.charset.Charset
 
 class Console : AppCompatActivity() {
 
@@ -40,7 +42,8 @@ class Console : AppCompatActivity() {
                 var sumOneWay = 0
                 var sumRoundTrip = 0
                 var sumTotal = 0
-
+                // 個別購買者的統計資料
+                var statListByUser = mutableListOf<Map<String,Int>>()
                 children.forEach {
                     when(it.key.toString()) {
                         "discount" -> firebaseDiscount = it.value.toString().toDouble()
@@ -49,16 +52,23 @@ class Console : AppCompatActivity() {
                         // 訂單明細
                         "order" ->{
                             it.children.forEach{// 訂單人名
+                                var mapUser = mutableMapOf<String,Int>()
+                                val mapUserName = it.key.toString()
+                                mapUser.put(mapUserName,0)
                                 it.children.forEach{// 訂票日期
                                     it.children.forEach {
                                         when(it.key.toString()){// 項目
                                             "allTickets" -> sumAllTickets += it.value.toString().toInt()
                                             "oneWay" -> sumOneWay += it.value.toString().toInt()
                                             "roundTrip" -> sumRoundTrip += it.value.toString().toInt()
-                                            "total" -> sumTotal += it.value.toString().toInt()
+                                            "total" -> {
+                                                sumTotal += it.value.toString().toInt()
+                                                mapUser.put(mapUserName,mapUser.get(mapUserName)!! + it.value.toString().toInt())
+                                            }
                                         }
                                     }
                                 }
+                                statListByUser.add(mapUser)
                             }
                         }
                     }
@@ -73,6 +83,36 @@ class Console : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        // 載錄圖表
+        loadChart()
+    }
+
+    fun loadChart() {
+        var webSettings =  web_view.settings;
+        webSettings.setJavaScriptEnabled(true); // 啟用 Javascript
+        webSettings.setBuiltInZoomControls(true); // 啟用 Zoom
+        var asset_path = "file:///asset/";
+        var html = getHtml("chart.html");
+        html = String.format(html!!, 10, 20, 30, 40, 50)
+        web_view.loadDataWithBaseURL(asset_path, html!!, "text/html", "utf-8", null);
+        web_view.requestFocusFromTouch();
+    }
+
+    // 取得 html 內容字串
+    private fun getHtml(filename: String): String? {
+        var html: String? = null
+        try {
+            val `in`: InputStream = assets.open(filename)
+            val out = ByteArrayOutputStream()
+            val buffer = ByteArray(`in`.available())
+            `in`.read(buffer) // 讀出
+            out.write(buffer) // 寫入
+            html = String(out.toByteArray(), Charset.forName("UTF-8"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return html
     }
 
     fun selectFirbase(){

@@ -1,124 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Console">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="來回折扣"
-            android:textSize="25dp"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="來回折扣"
+                android:textSize="25dp"/>
 
-        <EditText
-            android:id="@+id/ed_console_discount"
+            <EditText
+                android:id="@+id/ed_console_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:padding="10dp"
+                android:selectAllOnFocus="true"
+                android:text="0"
+                android:textSize="25dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            android:padding="10dp"
-            android:selectAllOnFocus="true"
-            android:text="0"
-            android:textSize="25dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="剩餘數量"
+                android:textSize="25dp" />
 
-        <TextView
+            <EditText
+                android:id="@+id/ed_console_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:padding="10dp"
+                android:selectAllOnFocus="true"
+                android:text="0"
+                android:textSize="25dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="剩餘數量"
-            android:textSize="25dp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/ed_console_amount"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="價格"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/ed_console_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:padding="10dp"
+                android:selectAllOnFocus="true"
+                android:text="0"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            android:padding="10dp"
-            android:selectAllOnFocus="true"
-            android:text="0"
-            android:textSize="25dp"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:text="修改"
+                android:textSize="20dp"
+                android:padding="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:onClick="updateFirebase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="價格"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/ed_console_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            android:padding="10dp"
-            android:selectAllOnFocus="true"
-            android:text="0"
-            android:textSize="25dp" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:text="修改"
-            android:textSize="20dp"
-            android:padding="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:onClick="updateFirebase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        <!-- 統計資料-->
+        <LinearLayout
             android:layout_margin="10dp"
-            android:text="銷售統計："
-            android:textSize="25dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_stat"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="10dp"
+                android:text="銷售統計："
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_stat"
+                android:layout_margin="10dp"
+                android:text="內容..."
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- 統計圖 -->
+        <WebView
+            android:id="@+id/web_view"
             android:layout_margin="10dp"
-            android:text="內容..."
-            android:textSize="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>
