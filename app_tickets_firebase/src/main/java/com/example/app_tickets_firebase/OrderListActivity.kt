@@ -24,6 +24,7 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.RowOnItemClic
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_list)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         context = this
 
         // 取得上一頁傳來的 userName 參數資料
@@ -36,22 +37,45 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.RowOnItemClic
                 val orderList = mutableListOf<Order>()
                 children.forEach {
                     if (it.key.toString() == "order") {
-                        tv_info.setText(it.child(userName).toString())
-                        it.child(userName).children.forEach {
-                            try {
-                                val order = Order(
-                                    userName,
-                                    it.key.toString(),
-                                    it.child("allTickets").value.toString().toInt(),
-                                    it.child("roundTrip").value.toString().toInt(),
-                                    it.child("oneWay").value.toString().toInt(),
-                                    it.child("total").value.toString().toInt()
-                                )
-                                orderList.add(order)
-                            } catch (e: Exception) {
+                        if (userName == null || userName.equals("") || userName.equals("null")) {
+                            // 未指名 userName --------------------------------
+                            it.children.forEach {
+                                val userName = it.key.toString()
+                                it.children.forEach {
+                                    try {
+                                        val order = Order(
+                                            userName,
+                                            it.key.toString(),
+                                            it.child("allTickets").value.toString().toInt(),
+                                            it.child("roundTrip").value.toString().toInt(),
+                                            it.child("oneWay").value.toString().toInt(),
+                                            it.child("total").value.toString().toInt()
+                                        )
+                                        orderList.add(order)
+                                    } catch (e: Exception) {
+
+                                    }
+                                }
 
                             }
+                        }else{
+                            //  指名 userName ---------------------------------------
+                            tv_info.setText(it.child(userName).toString())
+                            it.child(userName).children.forEach {
+                                try {
+                                    val order = Order(
+                                        userName,
+                                        it.key.toString(),
+                                        it.child("allTickets").value.toString().toInt(),
+                                        it.child("roundTrip").value.toString().toInt(),
+                                        it.child("oneWay").value.toString().toInt(),
+                                        it.child("total").value.toString().toInt()
+                                    )
+                                    orderList.add(order)
+                                } catch (e: Exception) {
 
+                                }
+                            }
                         }
                     }
                 }
@@ -83,8 +107,19 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.RowOnItemClic
         alert.setTitle("退票")
         alert.setMessage("$key 是否要退票 ?")
         alert.setPositiveButton("是") { dialog, which ->
-            val returnTickets = TicketsStock.totalAmount + order.allTickets
-            myRef.child("totalAmount").setValue(returnTickets)
+            myRef.child("order/" + order.userName + "/" + key).removeValue()
+            // 票數加回
+            // 從 order.allTickets 加回到 firebase's totalAmount 欄位中
+            // addListenerForSingleValueEvent 監聽單一欄位資料
+            myRef.child("totalAmount").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val returnTickets = snapshot.value.toString().toInt() + order.allTickets
+                    myRef.child("totalAmount").setValue(returnTickets)
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
         }
         alert.setNegativeButton("否", null)
         alert.show()

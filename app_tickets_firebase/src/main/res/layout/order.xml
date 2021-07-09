@@ -3,27 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-
+    <TextView
+        android:id="@+id/tv_userName"
+        android:text="購買人"
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_allTickets"
+        android:text="總票數"
         android:padding="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_roundTrip"
+        android:text="來回票數"
         android:padding="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_oneWay"
+        android:text="單程票數"
         android:padding="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_total"
+        android:text="總金額"
         android:padding="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"

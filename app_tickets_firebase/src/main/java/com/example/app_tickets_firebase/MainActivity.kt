@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         context = this
         userName = intent.getStringExtra("userName").toString()
         //修改 Title
@@ -139,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(context, "購買成功 !", Toast.LENGTH_SHORT).show()
     }
 
+    //檢視購票紀錄
     fun recordTicket(view:View){
         val intent = Intent(context, OrderListActivity::class.java)
         // 設定 userName 參數資料給指定頁 (EX : OrderListActivity)
